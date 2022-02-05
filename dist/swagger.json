@@ -1,0 +1,264 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "LANNISTER PAY",
+        "contact": {
+            "email": "oseni_eniola@yahoo.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "127.0.0.1:3000"
+        },
+        {
+            "url": "127.0.0.1:3000"
+        }
+    ],
+    "host": "127.0.0.1:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Health",
+            "description": "health check"
+        },
+        {
+            "name": "fees",
+            "description": "Add Fee Configurations"
+        },
+        {
+            "name": "compute-transaction-fee",
+            "description": "Compute Transaction"
+        }
+    ],
+    "schemes": ["https", "http"],
+    "paths": {
+        "/health": {
+            "get": {
+                "tags": ["Health"],
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/compute-transaction-fee": {
+            "post": {
+                "tags": ["compute-transaction-fee"],
+                "summary": "Compute Transactions",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TrxPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/TrxResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/fees": {
+            "post": {
+                "tags": ["fees"],
+                "summary": "Compute Transactions",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/FeeConfigurationSpec"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "FeeConfigurationSpec": {
+            "type": "object",
+            "properties": {
+                "FeeConfigurationSpec": {
+                    "type": "string",
+                    "format": "LNPY1221 NGN * *(*) : APPLY PERC 1.4\nLNPY1222 NGN INTL CREDIT-CARD(VISA) : APPLY PERC 5.0\nLNPY1223 NGN LOCL CREDIT-CARD(*) : APPLY FLAT_PERC 50:1.4"
+                }
+            }
+        },
+        "FeeConfig": {
+            "type": "object",
+            "properties": {
+                "FEE_ID": {
+                    "type": "string",
+                    "format": "LNPY1225"
+                },
+                "FEE_CURRENCY": {
+                    "type": "string",
+                    "format": "NGN"
+                },
+                "FEE_LOCALE": {
+                    "type": "string",
+                    "format": "LOCALE"
+                },
+                "FEE_ENTITY": {
+                    "type": "string",
+                    "format": "*"
+                },
+                "ENTITY_PROP": {
+                    "type": "string",
+                    "format": "MTN"
+                },
+                "FEE_TYPE": {
+                    "type": "string",
+                    "format": "PERC"
+                },
+                "FEE_VALUE": {
+                    "type": "string",
+                    "format": "100"
+                }
+            }
+        },
+        "TrxResponse": {
+            "type": "object",
+            "properties": {
+                "APPLIEDFEE_ID": {
+                    "type": "string",
+                    "format": "LNPY1221"
+                },
+                "APPLIEDFEEVALUE": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "CHARGEAMOUNT": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "SETTLEAMOUMT": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "TrxPayload": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Amount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Currency": {
+                    "type": "string",
+                    "format": "NGN"
+                },
+                "CurrencyCountry": {
+                    "type": "string",
+                    "format": "NG"
+                },
+                "Customer": {
+                    "type": "object",
+                    "*ref": "#/definitions/customer"
+                },
+                "PaymentEntity": {
+                    "type": "object",
+                    "*ref": "#/definitions/paymentEntity"
+                }
+            }
+        },
+        "customer": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "EmailAddress": {
+                    "type": "string",
+                    "format": "jon.doe@gmail.com"
+                },
+                "FullName": {
+                    "type": "string",
+                    "format": "Jon Doe"
+                },
+                "BearsFee": {
+                    "type": "boolean",
+                    "format": "true"
+                }
+            }
+        },
+        "paymentEntity": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Issuer": {
+                    "type": "string",
+                    "format": "VISA"
+                },
+                "Brand": {
+                    "type": "string",
+                    "format": "Brand"
+                },
+                "Number": {
+                    "type": "string",
+                    "format": "Number"
+                },
+                "SixID": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Type": {
+                    "type": "string",
+                    "format": "Type"
+                },
+                "Country": {
+                    "type": "string",
+                    "format": "string"
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "uuid": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "minLength": 36,
+                "maxLength": 36
+            }
+        }
+    }
+}
