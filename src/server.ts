@@ -39,5 +39,5 @@ app.use("/fees", feeconfig);
 app.use("/compute-transaction-fee", compute);
 app.listen(port, () => {
   // tslint:disable-next-line:no-console
-  console.log(`Express is listening at http://localhost:${port}`);
+ // console.log(`Express is listening at http://localhost:${port}`);
 });
