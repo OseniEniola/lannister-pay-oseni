@@ -37,7 +37,7 @@ app.get('/health', (req, res) => res.sendStatus(200));
 
 app.use("/fees", feeconfig);
 app.use("/compute-transaction-fee", compute);
-app.listen(port, () => {
+app.listen(process.env.PORT || 3000, () => {
   // tslint:disable-next-line:no-console
- // console.log(`Express is listening at http://localhost:${port}`);
+  console.log(`Express is listening at http://localhost:${port}`);
 });
