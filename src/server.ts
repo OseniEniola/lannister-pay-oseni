@@ -28,8 +28,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument)
 );
-app.use("/",swaggerUi.serve,swaggerUi.setup(swaggerDocument)
-);
+/* app.use("/",swaggerUi.serve,swaggerUi.setup(swaggerDocument)
+); */
 /* app.get('/', (req, res) => res.sendStatus(200));
  */app.get('/health', (req, res) => res.sendStatus(200));
 

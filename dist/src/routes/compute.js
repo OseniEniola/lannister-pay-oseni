@@ -15,7 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const redis_1 = require("redis");
 const computetrx_1 = require("../utilities/computetrx");
-const client = (0, redis_1.createClient)();
+// const client = createClient();
+const client = (0, redis_1.createClient)({ url: process.env.REDIS_URL });
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield client.connect();
 }))();
@@ -61,7 +62,8 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 applicableConfig.push(val);
             }
         });
-        if (applicableConfig.length < 1) {
+        /*      client.disconnect();
+         */ if (applicableConfig.length < 1) {
             res.status(404).json({
                 Error: `No fee configuration for this transactions was found`,
             });

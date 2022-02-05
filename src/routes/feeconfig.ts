@@ -2,7 +2,7 @@ import express from 'express';
 import  {FeeSpec} from '../models/feespec'
 import {createClient} from 'redis';
 
-//const client = createClient();
+// const client = createClient();
 const client = createClient({url: process.env.REDIS_URL});
 
 
@@ -11,7 +11,15 @@ const client = createClient({url: process.env.REDIS_URL});
 })();
 const router = express.Router()
 
+router.get('/feeConfigs', async (req, res) => {
+    const data = await client.get('FeeConfig')
 
+    if(data){
+        res.status(200).json(data)
+    }else{
+        res.status(404).json('No Fee Config')
+    }
+})
 router.post('/',async (req, res) => {
     try {
         const feeConfigs: FeeSpec[]=[]
@@ -37,8 +45,8 @@ router.post('/',async (req, res) => {
             feeConfigs.push(fee)
         })
         await client.set('FeeConfig',JSON.stringify(feeConfigs))
-        .then( ()=>{ client.disconnect()})
-    // const data =  await client.get('FeeConfig')
+/*         .then( ()=>{ client.disconnect()})
+ */    // const data =  await client.get('FeeConfig')
 
         // tslint:disable-next-line:no-console
        // console.log("Saved to DB", JSON.parse(data))

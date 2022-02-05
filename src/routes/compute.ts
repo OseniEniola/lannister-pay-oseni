@@ -4,7 +4,7 @@ import { FeeSpec } from "../models/feespec";
 import { createClient } from "redis";
 import log from "loglevel";
 import {computeFee} from '../utilities/computetrx'
-//const client = createClient();
+// const client = createClient();
 const client = createClient({url: process.env.REDIS_URL});
 
 (async () => {
@@ -51,8 +51,8 @@ router.post("/", async (req, res) => {
         applicableConfig.push(val);
       }
     });
-     client.disconnect();
-    if (applicableConfig.length < 1) {
+/*      client.disconnect();
+ */    if (applicableConfig.length < 1) {
       res.status(404).json({
         Error: `No fee configuration for this transactions was found`,
       });

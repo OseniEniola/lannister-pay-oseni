@@ -14,7 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const redis_1 = require("redis");
-const client = (0, redis_1.createClient)();
+// const client = createClient();
+const client = (0, redis_1.createClient)({ url: process.env.REDIS_URL });
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield client.connect();
 }))();
@@ -43,7 +44,8 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             feeConfigs.push(fee);
         });
         yield client.set('FeeConfig', JSON.stringify(feeConfigs));
-        const data = yield client.get('FeeConfig');
+        /*         .then( ()=>{ client.disconnect()})
+         */ // const data =  await client.get('FeeConfig')
         // tslint:disable-next-line:no-console
         // console.log("Saved to DB", JSON.parse(data))
         res.status(200).json({ status: 'ok', data: feeConfigs });
