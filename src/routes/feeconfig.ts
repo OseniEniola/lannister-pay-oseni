@@ -2,7 +2,9 @@ import express from 'express';
 import  {FeeSpec} from '../models/feespec'
 import {createClient} from 'redis';
 
-const client = createClient();
+//const client = createClient();
+const client = createClient({url: process.env.REDIS_URL});
+
 
 (async () => {
   await client.connect();

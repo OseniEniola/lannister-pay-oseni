@@ -4,7 +4,8 @@ import { FeeSpec } from "../models/feespec";
 import { createClient } from "redis";
 import log from "loglevel";
 import {computeFee} from '../utilities/computetrx'
-const client = createClient();
+//const client = createClient();
+const client = createClient({url: process.env.REDIS_URL});
 
 (async () => {
   await client.connect();

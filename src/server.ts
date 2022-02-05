@@ -9,8 +9,8 @@ import  swaggerDocument from '../swagger.json';
 import cors from 'cors'
 
 (async () => {
-  const client = createClient();
-
+//  const client = createClient();
+  const client = createClient({url: process.env.REDIS_URL});
   client.on('error', (err) =>   // tslint:disable-next-line:no-console
   console.log('Redis Client Error', err));
   client.on('connect',()=>   // tslint:disable-next-line:no-console
