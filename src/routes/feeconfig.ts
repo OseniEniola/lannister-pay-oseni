@@ -37,7 +37,9 @@ router.post('/',async (req, res) => {
             feeConfigs.push(fee)
         })
         await client.set('FeeConfig',JSON.stringify(feeConfigs))
-     const data =  await client.get('FeeConfig')
+        .then( ()=>{ client.disconnect()})
+    // const data =  await client.get('FeeConfig')
+
         // tslint:disable-next-line:no-console
        // console.log("Saved to DB", JSON.parse(data))
         res.status(200).json({status:'ok', data: feeConfigs})

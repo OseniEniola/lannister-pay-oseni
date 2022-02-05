@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
         applicableConfig.push(val);
       }
     });
-
+     client.disconnect();
     if (applicableConfig.length < 1) {
       res.status(404).json({
         Error: `No fee configuration for this transactions was found`,

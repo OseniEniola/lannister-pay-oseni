@@ -8,7 +8,7 @@ import swaggerJsDoc from 'swagger-jsdoc';
 import  swaggerDocument from '../swagger.json';
 import cors from 'cors'
 
-(async () => {
+/* (async () => {
 //  const client = createClient();
   const client = createClient({url: process.env.REDIS_URL});
   client.on('error', (err) =>   // tslint:disable-next-line:no-console
@@ -16,10 +16,7 @@ import cors from 'cors'
   client.on('connect',()=>   // tslint:disable-next-line:no-console
   console.log('Redis Connected'))
   await client.connect();
-
-  await client.set('key', 'value');
-  const value = await client.get('key');
-})();
+})(); */
 
 const app = express();
 const port = 3000;
