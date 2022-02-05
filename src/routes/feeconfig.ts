@@ -15,7 +15,7 @@ router.get('/feeConfigs', async (req, res) => {
     const data = await client.get('FeeConfig')
 
     if(data){
-        res.status(200).json(data)
+        res.status(200).json(JSON.parse(data))
     }else{
         res.status(404).json('No Fee Config')
     }
