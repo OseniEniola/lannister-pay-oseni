@@ -45,7 +45,7 @@
         }
       }
     },
-    "/feeConfigs": {
+    "/fees/feeConfigs": {
       "get": {
         "tags": ["fees"],
         "produces": ["application/json"],
