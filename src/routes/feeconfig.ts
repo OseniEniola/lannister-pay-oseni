@@ -10,6 +10,9 @@ const client = createClient({url: process.env.REDIS_URL});
 const router = express.Router()
 
 router.get('/feeConfigs', async (req, res) => {
+    (async () => {
+        await client.connect();
+      })();
     const data = await client.get('FeeConfig')
 
     if(data){
