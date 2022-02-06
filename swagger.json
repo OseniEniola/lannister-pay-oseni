@@ -12,10 +12,10 @@
       "url": "https://lannister-pay-oseni.herokuapp.com:3000"
     },
     {
-      "url": "https://lannister-pay-oseni.herokuapp.com:3000"
+      "url": "127.0.0.1:3000"
     }
   ],
-  "host": "lannister-pay-oseni.herokuapp.com",
+  "host": "127.0.0.1:3000",
   "basePath": "/",
   "tags": [
     {
