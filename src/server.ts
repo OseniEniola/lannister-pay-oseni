@@ -30,8 +30,8 @@ app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument)
 );
 /* app.use("/",swaggerUi.serve,swaggerUi.setup(swaggerDocument)
 ); */
-/* app.get('/', (req, res) => res.sendStatus(200));
- */app.get('/health', (req, res) => res.sendStatus(200));
+app.get('/', (req, res) => res.redirect('/api-docs'));
+ app.get('/health', (req, res) => res.sendStatus(200));
 
 
 app.use("/fees", feeconfig);
