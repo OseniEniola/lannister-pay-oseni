@@ -20,6 +20,15 @@ const client = (0, redis_1.createClient)({ url: process.env.REDIS_URL });
     yield client.connect();
 }))();
 const router = express_1.default.Router();
+router.get('/feeConfigs', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield client.get('FeeConfig');
+    if (data) {
+        res.status(200).json(JSON.parse(data));
+    }
+    else {
+        res.status(404).json('No Fee Config');
+    }
+}));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const feeConfigs = [];
@@ -43,9 +52,9 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             fee.FEE_VALUE = x[8];
             feeConfigs.push(fee);
         });
-        yield client.set('FeeConfig', JSON.stringify(feeConfigs));
-        /*         .then( ()=>{ client.disconnect()})
-         */ // const data =  await client.get('FeeConfig')
+        yield client.set('FeeConfig', JSON.stringify(feeConfigs))
+            .then(() => { client.disconnect(); });
+        // const data =  await client.get('FeeConfig')
         // tslint:disable-next-line:no-console
         // console.log("Saved to DB", JSON.parse(data))
         res.status(200).json({ status: 'ok', data: feeConfigs });

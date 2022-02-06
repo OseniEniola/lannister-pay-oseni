@@ -15,7 +15,7 @@
             "url": "https://lannister-pay-oseni.herokuapp.com:3000"
         }
     ],
-    "host": "127.0.0.1:3000",
+    "host": "lannister-pay-oseni.herokuapp.com",
     "basePath": "/",
     "tags": [
         {
@@ -36,6 +36,18 @@
         "/health": {
             "get": {
                 "tags": ["Health"],
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/fees/feeConfigs": {
+            "get": {
+                "tags": ["fees"],
                 "produces": ["application/json"],
                 "parameters": [],
                 "responses": {

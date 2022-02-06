@@ -7,17 +7,18 @@ import {computeFee} from '../utilities/computetrx'
 // const client = createClient();
 const client = createClient({url: process.env.REDIS_URL});
 
-(async () => {
-  await client.connect();
-})();
+
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
+    (async () => {
+      await client.connect();
+    })();
     let payload: TrxPayload = {} as TrxPayload;
     const applicableConfig: FeeSpec[] = [];
     let appliedConfig;
-    const feeConfig: FeeSpec[] = JSON.parse(await client.get("FeeConfig"));
+    const feeConfig: FeeSpec[] = JSON.parse(await client.get("FeeConfig").then((data)=>{client.disconnect(); return data }));
     payload = req.body;
     if (payload.Currency !== "NGN") {
       res.status(404).json({

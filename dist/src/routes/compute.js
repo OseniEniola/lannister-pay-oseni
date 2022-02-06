@@ -14,19 +14,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const redis_1 = require("redis");
+const loglevel_1 = __importDefault(require("loglevel"));
 const computetrx_1 = require("../utilities/computetrx");
 // const client = createClient();
 const client = (0, redis_1.createClient)({ url: process.env.REDIS_URL });
-(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield client.connect();
-}))();
 const router = express_1.default.Router();
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        (() => __awaiter(void 0, void 0, void 0, function* () {
+            yield client.connect();
+        }))();
         let payload = {};
         const applicableConfig = [];
         let appliedConfig;
-        const feeConfig = JSON.parse(yield client.get("FeeConfig"));
+        const feeConfig = JSON.parse(yield client.get("FeeConfig").then((data) => { client.disconnect(); return data; }));
+        loglevel_1.default.warn(feeConfig);
         payload = req.body;
         if (payload.Currency !== "NGN") {
             res.status(404).json({
